@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX Integration with Flask</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <input type="text" id="searchInput" placeholder="Search...">
+    <div id="searchResults"></div>
+
+    <script>
+        $(document).ready(function() {
+            $('#searchInput').keyup(function() {
+                var query = $(this).val();
+                $.ajax({
+                    url: '/search',
+                    method: 'GET',
+                    data: { query: query },
+                    success: function(response) {
+                        var html = '';
+                        response.results.forEach(function(result) {
+                            html += '<div>';
+                            html += '<h3>' + result.name + '</h3>';
+                            html += '<p>Color: ' + result.details.color + '</p>';
+                            html += '<p>Taste: ' + result.details.taste + '</p>';
+                            html += '</div>';
+                        });
+                        $('#searchResults').html(html);
+                    } //success
+                }); //ajax
+            }); //keyup
+        }); //main
+
+    </script>
+</body>
+</html>

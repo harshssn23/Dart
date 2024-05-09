@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX Integration with Flask</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <h2>Dynamic Content:</h2>
+    <div id="dynamicContent"></div>
+
+    <script>
+        $(document).ready(function() {
+            function updateDynamicContent() {
+                $.ajax({
+                    url: '/dynamic-content',
+                    method: 'GET',
+                    success: function(response) {
+                        $('#dynamicContent').html(response.content);
+                    }//function response
+                });
+            } //updatedynamicontent
+
+            // Update dynamic content every 5 seconds
+            setInterval(updateDynamicContent, 1000);
+
+            // Initial call to update dynamic content
+            updateDynamicContent();
+        }); //main
+    </script>
+</body>
+</html>
