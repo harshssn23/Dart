@@ -1,0 +1,61 @@
+ex4 - resume
+
+rails new resume
+cd resume
+rails g scaffold name:string  -- wrong
+rails generate scaffold Resume name:string email:string phone:string
+summary:text education:text experience:text skills:text
+rails db:migrate
+
+# db/seeds.rb
+Resume.create!(
+name: "Raja",
+email: "john@example.com",
+phone: "123-456-7890",
+summary: "Experienced web developer with expertise in Ruby on Rails.",
+education: "Bachelor of Science in Computer Science, University XYZ",
+experience: "Senior Developer at ABC Company (2018 - Present)",
+skills: "Ruby on Rails, HTML/CSS, JavaScript, SQL"
+)
+rails db:seed
+# config/routes.rb
+Rails.application.routes.draw do
+resources :resumes
+root 'resumes#index'
+end
+rails server
+
+ex5 - Todo
+rails new Todo
+cd Todo
+rails g scaffold Todo label:string description:text
+rails db:migrate
+rails server
+
+ex6 - authentication and authorisation
+rails new app
+cd app
+bundle add devise
+rails generate devise:install
+rilas generate devise user role:integer
+Db/migrate/file
+Default: 0
+
+rails db:migrate
+rails g controller pages home
+App/views / pages 
+Code
+<h1>Exercise 5</h1>
+<%if current_user%>
+<p>Hello <%=current_user.email%></p>
+<%=link_to "Logout", destroy_user_session_path, 'data-turbo-method': :delete%>
+<%else%>
+<%=link_to "Sign up", new_user_registration_path%>
+<%=link_to "Login in", new_user_session_path%>
+<%end%>
+Rails.application.routes.draw do
+  root 'pages#home'
+  devise_for :users
+end
+
+rails server
